@@ -1,0 +1,58 @@
+{
+  "name": "zephyr",
+  "version": "1.0.0",
+  "description": "A modern, minimalistic weather app delivering real-time forecasts with clean UI and reliable APIs.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devxsameer/zephyr.git"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "keywords": [
+    "weather-app",
+    "zephyr",
+    "devxsameer"
+  ],
+  "author": "Sameer Ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devxsameer/zephyr/issues"
+  },
+  "homepage": "https://github.com/devxsameer/zephyr#readme",
+  "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "@eslint/js": "^9.34.0",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-webpack-plugin": "^5.0.2",
+    "globals": "^16.3.0",
+    "html-webpack-plugin": "^5.6.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "3.6.2",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2",
+    "webpack-merge": "^6.0.1"
+  }
+}
