@@ -1,5 +1,6 @@
 import { getGeolocation, getSearchSuggestions, getWeatherData } from "./api";
 import UI from "../ui";
+import { debounce } from "./utils";
 
 // DOM Variables
 const searchBar = document.querySelector(".search input");
@@ -8,15 +9,7 @@ const queryList = document.querySelector(".query-list");
 
 // Debouncing Implementation
 const debouncedSearch = debounce(handleSearch, 500);
-function debounce(func, delay = 500) {
-  let timeout = null;
-  const debounced = (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), delay);
-  };
-  debounced.cancel = () => clearTimeout(timeout);
-  return debounced;
-}
+
 function cancelDebounce() {
   UI.clearSuggestions();
   UI.hideSearchLoader();
@@ -28,14 +21,20 @@ async function getCurrentLocationWeather() {
     setWeather(latitude, longitude);
   } catch (err) {
     console.error(err.message);
+    UI.renderEmpty();
   }
 }
 async function setWeather(lat, long) {
   try {
-    const { current, forecast } = await getWeatherData(lat, long);
+    const data = await getWeatherData(lat, long);
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    const { current, forecast } = data;
     UI.renderWeather(current, forecast);
   } catch (err) {
-    console.error("no data", err);
+    console.error("No weather data:", err);
+    UI.renderEmpty();
   } finally {
     searchBar.value = "";
     UI.clearSuggestions();
@@ -59,8 +58,7 @@ async function handleEnter(query) {
 }
 async function handleSearch(query) {
   UI.showSearchLoader();
-  // Capture the query that triggered this request
-  const currentQuery = query;
+  const currentQuery = query; // Track query that triggered this call
   try {
     const list = await getSearchSuggestions(query);
     if (searchBar.value.trim() !== currentQuery) return;
@@ -86,8 +84,10 @@ function init() {
     }
     debouncedSearch(query);
   });
+
   // Fetch Current Weather on Btn Click
   currentLocationBtn.addEventListener("click", getCurrentLocationWeather);
+
   // Render Weather On Enter
   searchBar.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -98,12 +98,13 @@ function init() {
       }
     }
   });
+
+  // Handle Suggestion Click
   queryList.addEventListener("click", (e) => {
     const queryLi = e.target.closest(".query-list-item");
+    if (!queryLi) return;
     const { latitude, longitude } = queryLi.dataset;
-    if (queryLi) {
-      setWeather(latitude, longitude);
-    }
+    if (latitude && longitude) setWeather(latitude, longitude);
   });
 }
 export { init, getCurrentLocationWeather };

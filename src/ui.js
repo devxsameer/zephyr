@@ -23,30 +23,41 @@ import {
 } from "./components/current";
 
 const UI = {
-  searchLoader: document.querySelector(".search-loader"),
-  loader: document.querySelector(".loader-wrapper"),
-  queryList: document.querySelector(".query-list"),
-  hero: document.querySelector(".hero"),
-  greeting: document.querySelector(".greeting span"),
-  mainContainer: document.querySelector(".main-container"),
+  searchLoader: document.querySelector(".search-loader") ?? null,
+  loader: document.querySelector(".loader-wrapper") ?? null,
+  queryList: document.querySelector(".query-list") ?? null,
+  hero: document.querySelector(".hero") ?? null,
+  greeting: document.querySelector(".greeting span") ?? null,
+  mainContainer: document.querySelector(".main-container") ?? null,
+
   weatherActive: false,
-  unit: "c",
+  unit: localStorage.getItem("unit") || "c", // persist unit
   current: null,
   forecast: null,
+
   // initialize
   init() {
-    this.greeting.innerHTML = getGreeting();
+    if (this.greeting) this.greeting.innerHTML = getGreeting();
+
     renderHero();
     renderEmptyCurrentWeather();
     renderEmptyWeatherForecast();
     this.refreshIcons();
     this.hideLoader();
-    // Adding Event Listeners
+    // Adding Active class
+    document
+      .querySelector(`[data-unit="${this.unit}"]`)
+      .classList.add("active");
+    // Event Listeners for unit toggle
     document.querySelectorAll(".temperature-unit span").forEach((span) => {
       span.addEventListener("click", () => {
+        if (span.classList.contains("active")) return; // skip if already active
+
         const active = document.querySelector(".temperature-unit span.active");
         span.classList.add("active");
         this.unit = span.dataset.unit;
+        localStorage.setItem("unit", this.unit); // persist choice
+
         if (this.weatherActive) {
           this.renderWeather(this.current, this.forecast);
         }
@@ -54,8 +65,11 @@ const UI = {
       });
     });
   },
-  // For SearchBar
+
+  // Render search suggestions
   renderSuggestions(list) {
+    if (!this.queryList) return;
+
     const queryListHtml = list
       .map((query) => {
         return /*html*/ `
@@ -66,9 +80,11 @@ const UI = {
       `;
       })
       .join("");
+
     this.queryList.innerHTML = queryListHtml;
     this.refreshIcons();
   },
+
   // To Render Empty
   renderEmpty() {
     this.weatherActive = false;
@@ -77,41 +93,41 @@ const UI = {
     renderEmptyWeatherForecast();
     this.refreshIcons();
   },
+
   // To Render Weather
   renderWeather(current, forecast) {
     this.weatherActive = true;
     this.current = current;
     this.forecast = forecast;
+
     renderWeatherHero(current, this.unit);
     renderWeatherForecast(forecast, this.unit);
     renderCurrentWeather(current);
+
     this.refreshIcons();
   },
+
   clearSuggestions() {
-    this.queryList.innerHTML = "";
+    if (this.queryList) this.queryList.innerHTML = "";
   },
-  // Search Loader
+
+  // Global Loader
   showLoader() {
-    this.loader.classList.remove("hidden");
+    this.loader?.classList.remove("hidden");
   },
   hideLoader() {
-    this.loader.classList.add("hidden");
+    this.loader?.classList.add("hidden");
   },
+
   // Search Loader
   showSearchLoader() {
-    this.searchLoader.classList.add("active");
+    this.searchLoader?.classList.add("active");
   },
   hideSearchLoader() {
-    this.searchLoader.classList.remove("active");
+    this.searchLoader?.classList.remove("active");
   },
-  // For Skeletons
-  showSkeletons() {
-    this.hero.classList.add("skeleton-active");
-  },
-  hideSkeletons() {
-    this.hero.classList.remove("skeleton-active");
-  },
-  // Refresh Icons
+
+  // Refresh Lucide Icons
   refreshIcons() {
     createIcons({
       icons: {

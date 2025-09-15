@@ -2,6 +2,15 @@ import { parse, getHours, parseISO, format } from "date-fns";
 function round(num) {
   return Math.round(num);
 }
+function debounce(func, delay = 500) {
+  let timeout = null;
+  const debounced = (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), delay);
+  };
+  debounced.cancel = () => clearTimeout(timeout);
+  return debounced;
+}
 function getParsedDate(dateStr) {
   return parse(dateStr, "yyyy-MM-dd HH:mm", new Date());
 }
@@ -71,4 +80,5 @@ export {
   getUVFeedback,
   isoToAmPmWithSub,
   celsiusToFahrenheit,
+  debounce,
 };

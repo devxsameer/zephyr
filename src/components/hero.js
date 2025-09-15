@@ -6,9 +6,14 @@ import bgNight from "../assets/images/background-night.png";
 import errorSvg from "../assets/images/error.svg";
 import initialSvg from "../assets/images/hero.svg";
 import { celsiusToFahrenheit } from "../modules/utils";
-const hero = document.querySelector(".hero ");
-// for initial and error hero
+
+const hero = document.querySelector(".hero") ?? null;
+
+// Initial & error hero
 function renderHero(initial = true) {
+  if (!hero) return;
+  const now = new Date();
+
   const html = /*html*/ `
     <div>
         <div class="hero-content">
@@ -20,8 +25,8 @@ function renderHero(initial = true) {
               initial
                 ? `
                 <div class="hero-time">
-                    <span>${format(new Date(), "EEEE")},</span>
-                    ${format(new Date(), "hh:mm a")}
+                    <span>${format(now, "EEEE")},</span>
+                    ${format(now, "hh:mm a")}
                 </div>`
                 : ``
             }
@@ -41,10 +46,17 @@ function renderHero(initial = true) {
     `;
   hero.innerHTML = html;
 }
-// for weather hero
+
+// Weather hero
 function renderWeatherHero(current, unit) {
+  if (!hero) return;
+
   const locationBg = current.isDay ? `url(${bgDay})` : `url(${bgNight})`;
   const isCelsius = unit === "c";
+  const temp = isCelsius
+    ? current.temperature
+    : celsiusToFahrenheit(current.temperature);
+
   const html = /*html*/ `
             <div>
                 <div class="hero-content">
@@ -54,7 +66,7 @@ function renderWeatherHero(current, unit) {
                     )}" alt="weather-svg" class="hero-svg" />
                     <div>
                         <div class="hero-temperature">
-                            <span>${isCelsius ? current.temperature : celsiusToFahrenheit(current.temperature)}</span>
+                            <span>${temp}</span>
                             <sup>${isCelsius ? "°C" : "°F"}</sup>
                         </div>
                         <div class="hero-time">
@@ -69,7 +81,7 @@ function renderWeatherHero(current, unit) {
                     </div>
                     <div class="hero-stats-precipitation">
                         <i data-lucide="cloud-rain" class="icon"></i>
-                        <span>Rain - ${current.today.precipitation}%</span>
+                        <span>Rain - ${current.today?.precipitation ?? 0}%</span>
                     </div>
                 </div>
             </div>

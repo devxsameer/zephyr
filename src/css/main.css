@@ -172,6 +172,7 @@ body {
   background-color: var(--color-foreground-light);
   padding: 0.4rem;
   border-radius: 50%;
+  cursor: pointer;
 }
 .search .geolocation .icon {
   transition: all 0.4s ease-in-out;
