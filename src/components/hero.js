@@ -5,6 +5,7 @@ import bgDay from "../assets/images/background-day.png";
 import bgNight from "../assets/images/background-night.png";
 import errorSvg from "../assets/images/error.svg";
 import initialSvg from "../assets/images/hero.svg";
+import { celsiusToFahrenheit } from "../modules/utils";
 const hero = document.querySelector(".hero ");
 // for initial and error hero
 function renderHero(initial = true) {
@@ -35,18 +36,15 @@ function renderHero(initial = true) {
                 <i data-lucide="search" class="icon"></i>
                 <span>Pro tip: Type just a few letters—Zephyr's smart search will guess the city!</span>
             </div>
-            <div class="hero-extras-tip">
-                <i data-lucide="link" class="icon"></i>
-                <span>Made with &hearts; by <a href="https://github.com/devxsameer" target="_blank" rel="noopener noreferrer">@devxsameer</a></span>
-            </div>
         </div>
     </div>
     `;
   hero.innerHTML = html;
 }
 // for weather hero
-function renderWeatherHero(current) {
+function renderWeatherHero(current, unit) {
   const locationBg = current.isDay ? `url(${bgDay})` : `url(${bgNight})`;
+  const isCelsius = unit === "c";
   const html = /*html*/ `
             <div>
                 <div class="hero-content">
@@ -56,8 +54,8 @@ function renderWeatherHero(current) {
                     )}" alt="weather-svg" class="hero-svg" />
                     <div>
                         <div class="hero-temperature">
-                            <span>${current.temperature}</span>
-                            <sup>°C</sup>
+                            <span>${isCelsius ? current.temperature : celsiusToFahrenheit(current.temperature)}</span>
+                            <sup>${isCelsius ? "°C" : "°F"}</sup>
                         </div>
                         <div class="hero-time">
                             <span>${format(current.localTime, "EEEE")},</span>${format(current.localTime, "hh:mm a")}

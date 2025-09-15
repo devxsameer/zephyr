@@ -2,9 +2,15 @@
   display: flex;
   overflow-x: auto;
   gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.forecast-card-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 .forecast-card-wrapper .forecast-card {
   background-color: var(--color-foreground-light);
+  flex: 1;
   border-radius: 0.4rem;
   min-width: 100px;
   padding: 0.5rem;
@@ -15,4 +21,12 @@
 }
 .forecast-card-wrapper .forecast-card img {
   width: 100px;
+}
+.forecast-card-wrapper .forecast-card .temp {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+}
+.forecast-card-wrapper .forecast-card .temp span {
+  color: var(--color-text);
+  font-weight: 500;
 }

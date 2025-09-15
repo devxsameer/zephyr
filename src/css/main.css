@@ -96,7 +96,7 @@ body {
   font-optical-sizing: auto;
   font-weight: normal;
   font-style: normal;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--color-background);
   color: var(--color-text);
 }
@@ -107,12 +107,20 @@ body {
   grid-template-areas:
     "main header"
     "main section";
-  height: 100%;
+  min-height: 100vh;
   padding: 1rem;
   gap: 1rem;
 }
 .main-container > * {
   order: 1;
+}
+.empty-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-light);
+  justify-content: center;
 }
 .main {
   grid-area: main;
@@ -141,7 +149,7 @@ body {
 .section > * > h3 {
   font-weight: 400;
 }
-.section .current {
+.section .forecast {
   flex: 2;
 }
 /* SEARCH */
@@ -253,4 +261,17 @@ body {
 .header .temperature-unit > span.active {
   background-color: var(--color-text);
   color: var(--color-foreground);
+}
+/* FOOTER */
+.footer {
+  max-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row nowrap;
+  color: var(--color-text-light);
+}
+.footer a {
+  text-decoration: underline;
+  color: var(--color-text);
 }

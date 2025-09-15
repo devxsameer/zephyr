@@ -88,9 +88,7 @@ div.hero-initial p {
 .hero-extras {
   gap: 0.5rem;
 }
-.hero-extras a {
-  text-decoration: underline;
-}
+
 .hero-stats {
   text-transform: capitalize;
 }

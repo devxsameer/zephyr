@@ -42,7 +42,6 @@ async function getSearchSuggestions(query) {
       );
     }
     const data = await response.json();
-    console.log(data.results);
     return data.results || null;
   } catch (err) {
     console.error("Fetching Error:", err.message);
@@ -56,6 +55,8 @@ function filterWeatherData(currentWeather, forecastWeather) {
     date,
     tempMax: round(daily.temperature_2m_max[index]),
     tempMin: round(daily.temperature_2m_min[index]),
+    sunrise: daily.sunrise[index],
+    sunset: daily.sunset[index],
     weatherCode: daily.weather_code[index],
     precipitation: daily.precipitation_probability_mean[index],
   }));
@@ -65,6 +66,10 @@ function filterWeatherData(currentWeather, forecastWeather) {
   const current = {
     condition: currentWeather.current.condition.text,
     isDay: currentWeather.current.is_day,
+    windSpeed: currentWeather.current.wind_kph,
+    humidity: currentWeather.current.humidity,
+    uv: currentWeather.current.uv,
+    cloud: currentWeather.current.cloud,
     name: currentWeather.location.name,
     localTime: getParsedDate(currentWeather.location.localtime),
     region: currentWeather.location.region,
@@ -80,8 +85,9 @@ async function getWeatherData(lat, long) {
   const params = new URLSearchParams({
     latitude: lat,
     longitude: long,
+    timezone: "auto",
     daily:
-      "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean",
+      "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean,sunrise,sunset",
   });
   try {
     const [currentWeatherResponse, forecastResponse] = await Promise.all([
@@ -103,8 +109,6 @@ async function getWeatherData(lat, long) {
     const currentWeatherData = await currentWeatherResponse.json();
     const forecastData = await forecastResponse.json();
     if (currentWeatherData && forecastData) {
-      console.dir(currentWeatherData);
-      console.dir(forecastData);
       return filterWeatherData(currentWeatherData, forecastData);
     } else {
       return null;

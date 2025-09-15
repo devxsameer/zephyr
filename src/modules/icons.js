@@ -37,7 +37,7 @@ const ICON_MAP = {
   73: { day: svg13d, night: svg13n }, // Moderate snow fall
   75: { day: svg13d, night: svg13n }, // Heavy snow fall
 
-  80: { day: svg09d, night: svg09n }, // Rain showers slight
+  80: { day: svg02d, night: svg02n }, // Rain showers slight
   81: { day: svg09d, night: svg09n }, // Rain showers moderate
   82: { day: svg09d, night: svg09n }, // Rain showers violent
 

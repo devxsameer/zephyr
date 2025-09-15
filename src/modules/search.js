@@ -1,6 +1,5 @@
 import { getGeolocation, getSearchSuggestions, getWeatherData } from "./api";
 import UI from "../ui";
-import { renderHero } from "../components/hero";
 
 // DOM Variables
 const searchBar = document.querySelector(".search input");
@@ -53,8 +52,7 @@ async function handleEnter(query) {
   } catch (err) {
     console.error("Search failed:", err.message);
     searchBar.value = "";
-    renderHero(false);
-    UI.refreshIcons();
+    UI.renderEmpty();
   } finally {
     UI.clearSuggestions();
   }

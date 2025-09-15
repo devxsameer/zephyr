@@ -7,11 +7,20 @@ import {
   CloudRain,
   MapPin,
   Link,
+  Wind,
+  Droplets,
+  SunMedium,
 } from "lucide";
-import { renderWeatherHero } from "./components/hero";
+import { renderHero, renderWeatherHero } from "./components/hero";
 import { getGreeting, normalizeName } from "./modules/utils";
-import { renderWeatherForecast } from "./components/forecast";
-import { renderCurrentWeather } from "./components/current";
+import {
+  renderEmptyWeatherForecast,
+  renderWeatherForecast,
+} from "./components/forecast";
+import {
+  renderCurrentWeather,
+  renderEmptyCurrentWeather,
+} from "./components/current";
 
 const UI = {
   searchLoader: document.querySelector(".search-loader"),
@@ -19,9 +28,31 @@ const UI = {
   queryList: document.querySelector(".query-list"),
   hero: document.querySelector(".hero"),
   greeting: document.querySelector(".greeting span"),
+  mainContainer: document.querySelector(".main-container"),
+  weatherActive: false,
+  unit: "c",
+  current: null,
+  forecast: null,
   // initialize
   init() {
     this.greeting.innerHTML = getGreeting();
+    renderHero();
+    renderEmptyCurrentWeather();
+    renderEmptyWeatherForecast();
+    this.refreshIcons();
+    this.hideLoader();
+    // Adding Event Listeners
+    document.querySelectorAll(".temperature-unit span").forEach((span) => {
+      span.addEventListener("click", () => {
+        const active = document.querySelector(".temperature-unit span.active");
+        span.classList.add("active");
+        this.unit = span.dataset.unit;
+        if (this.weatherActive) {
+          this.renderWeather(this.current, this.forecast);
+        }
+        active.classList.remove("active");
+      });
+    });
   },
   // For SearchBar
   renderSuggestions(list) {
@@ -38,13 +69,23 @@ const UI = {
     this.queryList.innerHTML = queryListHtml;
     this.refreshIcons();
   },
+  // To Render Empty
+  renderEmpty() {
+    this.weatherActive = false;
+    renderHero(false);
+    renderEmptyCurrentWeather();
+    renderEmptyWeatherForecast();
+    this.refreshIcons();
+  },
   // To Render Weather
   renderWeather(current, forecast) {
-    renderWeatherHero(current);
-    renderWeatherForecast(forecast);
+    this.weatherActive = true;
+    this.current = current;
+    this.forecast = forecast;
+    renderWeatherHero(current, this.unit);
+    renderWeatherForecast(forecast, this.unit);
     renderCurrentWeather(current);
     this.refreshIcons();
-    console.log(forecast);
   },
   clearSuggestions() {
     this.queryList.innerHTML = "";
@@ -81,6 +122,9 @@ const UI = {
         CloudRain,
         MapPin,
         Link,
+        Wind,
+        SunMedium,
+        Droplets,
       },
     });
   },
