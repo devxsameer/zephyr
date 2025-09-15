@@ -1,0 +1,18 @@
+.forecast-card-wrapper {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+}
+.forecast-card-wrapper .forecast-card {
+  background-color: var(--color-foreground-light);
+  border-radius: 0.4rem;
+  min-width: 100px;
+  padding: 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 0.2rem;
+}
+.forecast-card-wrapper .forecast-card img {
+  width: 100px;
+}

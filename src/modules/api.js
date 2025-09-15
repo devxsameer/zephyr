@@ -54,8 +54,8 @@ function filterWeatherData(currentWeather, forecastWeather) {
   const daily = forecastWeather.daily;
   const days = daily.time.map((date, index) => ({
     date,
-    tempMax: daily.temperature_2m_max[index],
-    tempMin: daily.temperature_2m_min[index],
+    tempMax: round(daily.temperature_2m_max[index]),
+    tempMin: round(daily.temperature_2m_min[index]),
     weatherCode: daily.weather_code[index],
     precipitation: daily.precipitation_probability_mean[index],
   }));

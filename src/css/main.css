@@ -1,7 +1,8 @@
 /* CSS VARIABLES */
 :root {
-  --color-foreground: #0f0f0f;
-  --color-background: #1e1e1e;
+  --color-background: #0f0f0f;
+  --color-foreground: #1e1e1e;
+  --color-foreground-light: #272727;
   --color-text: white;
   --color-text-light: rgb(190, 190, 190);
 }
@@ -124,9 +125,24 @@ body {
 }
 .section {
   flex: 1;
-  background-color: var(--color-foreground);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+}
+.section > * {
+  flex: 1;
   padding: 1rem;
   border-radius: 0.5rem;
+  background-color: var(--color-foreground);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+}
+.section > * > h3 {
+  font-weight: 400;
+}
+.section .current {
+  flex: 2;
 }
 /* SEARCH */
 .search {
@@ -145,7 +161,7 @@ body {
   animation: spin 0.8s linear infinite;
 }
 .search .geolocation {
-  background-color: var(--color-background);
+  background-color: var(--color-foreground-light);
   padding: 0.4rem;
   border-radius: 50%;
 }

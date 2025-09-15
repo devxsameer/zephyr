@@ -35,6 +35,10 @@ function renderHero(initial = true) {
                 <i data-lucide="search" class="icon"></i>
                 <span>Pro tip: Type just a few letters—Zephyr's smart search will guess the city!</span>
             </div>
+            <div class="hero-extras-tip">
+                <i data-lucide="link" class="icon"></i>
+                <span>Made with &hearts; by <a href="https://github.com/devxsameer" target="_blank" rel="noopener noreferrer">@devxsameer</a></span>
+            </div>
         </div>
     </div>
     `;

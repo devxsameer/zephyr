@@ -81,9 +81,15 @@ div.hero-initial p {
   margin: 1rem 0;
   display: flex;
   flex-flow: column nowrap;
-  border-top: 2px solid rgb(51, 51, 51);
+  border-top: 2px solid var(--color-foreground-light);
   padding-top: 1rem;
   gap: 1rem;
+}
+.hero-extras {
+  gap: 0.5rem;
+}
+.hero-extras a {
+  text-decoration: underline;
 }
 .hero-stats {
   text-transform: capitalize;

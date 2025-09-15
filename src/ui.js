@@ -6,9 +6,12 @@ import {
   Cloudy,
   CloudRain,
   MapPin,
+  Link,
 } from "lucide";
 import { renderWeatherHero } from "./components/hero";
 import { getGreeting, normalizeName } from "./modules/utils";
+import { renderWeatherForecast } from "./components/forecast";
+import { renderCurrentWeather } from "./components/current";
 
 const UI = {
   searchLoader: document.querySelector(".search-loader"),
@@ -38,6 +41,8 @@ const UI = {
   // To Render Weather
   renderWeather(current, forecast) {
     renderWeatherHero(current);
+    renderWeatherForecast(forecast);
+    renderCurrentWeather(current);
     this.refreshIcons();
     console.log(forecast);
   },
@@ -75,6 +80,7 @@ const UI = {
         Cloudy,
         CloudRain,
         MapPin,
+        Link,
       },
     });
   },
