@@ -1,0 +1,102 @@
+/* HERO CONTENT */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+.hero-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+.hero-content > div.hero-initial {
+  text-align: center;
+}
+div.hero-initial p {
+  color: var(--color-text-light);
+  font-weight: 300;
+}
+.hero-content div h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5em;
+}
+.hero-temperature {
+  font-size: 4rem;
+  font-weight: 300;
+}
+.hero-temperature sup {
+  font-size: 2rem;
+}
+.hero-svg {
+  width: 250px;
+  justify-self: center;
+}
+.btn {
+  background-color: var(--color-background);
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+  letter-spacing: 0.5px;
+}
+.hero-location {
+  padding: 0.5rem;
+  background-color: var(--color-background);
+  border-radius: 0.4rem;
+  background-size: cover;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+.hero-location span:first-child {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.hero-location span:last-child {
+  color: #eee;
+}
+.hero-location.night span:last-child {
+  color: #eeeeee;
+}
+.hero-time {
+  color: var(--color-text-light);
+}
+.hero-time span {
+  font-weight: 400;
+  color: var(--color-text);
+  font-size: 1.2rem;
+  margin-right: 0.2rem;
+}
+.hero-stats,
+.hero-extras {
+  margin: 1rem 0;
+  display: flex;
+  flex-flow: column nowrap;
+  border-top: 2px solid rgb(51, 51, 51);
+  padding-top: 1rem;
+  gap: 1rem;
+}
+.hero-stats {
+  text-transform: capitalize;
+}
+.hero-stats > *,
+.hero-extras > * {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.hero-extras-tip span {
+  color: var(--color-text-light);
+}
+.hero-extras-tip .icon {
+  min-width: fit-content;
+}

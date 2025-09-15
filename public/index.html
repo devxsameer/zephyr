@@ -4,6 +4,100 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zephyr</title>
+    <style>
+      .loader-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid;
+        place-items: center;
+        background-color: #0f0f0f;
+        z-index: 100;
+      }
+      .loader-wrapper.hidden {
+        display: none;
+      }
+      /* HTML: <div class="loader"></div> */
+      .loader {
+        width: 40px;
+        aspect-ratio: 0.75;
+        --c: no-repeat linear-gradient(#fff 0 0);
+        background:
+          var(--c) 0% 50%,
+          var(--c) 50% 50%,
+          var(--c) 100% 50%;
+        background-size: 20% 50%;
+        animation: l6 1s infinite linear;
+      }
+      @keyframes l6 {
+        20% {
+          background-position:
+            0% 0%,
+            50% 50%,
+            100% 50%;
+        }
+        40% {
+          background-position:
+            0% 100%,
+            50% 0%,
+            100% 50%;
+        }
+        60% {
+          background-position:
+            0% 50%,
+            50% 100%,
+            100% 0%;
+        }
+        80% {
+          background-position:
+            0% 50%,
+            50% 50%,
+            100% 100%;
+        }
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div class="main-container">
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+      <div class="main">
+        <div class="search">
+          <i data-lucide="search" class="icon"></i>
+          <input
+            placeholder="Search for places..."
+            type="text"
+            name="search"
+            id="search-input"
+            autocomplete="off"
+          />
+          <div class="search-loader">
+            <i data-lucide="loader-circle" class="icon"></i>
+          </div>
+          <div class="geolocation" title="Fetch Current Location Weather.">
+            <i data-lucide="map-pin" class="icon"></i>
+          </div>
+          <ul class="query-list"></ul>
+        </div>
+        <div class="hero"></div>
+      </div>
+      <header class="header">
+        <h3 class="greeting">Hi there,<span></span></h3>
+        <div class="temperature-unit">
+          <span class="temperature-unit-c active">°C</span>
+          <span class="temperature-unit-f">°F</span>
+        </div>
+      </header>
+      <div class="section">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore,
+        voluptatibus debitis aliquam architecto voluptatem perspiciatis
+        temporibus, quidem sapiente laborum incidunt alias dolorum nobis?
+        Perspiciatis quae necessitatibus consectetur voluptatibus corrupti quia
+        ducimus in veniam!
+      </div>
+    </div>
+  </body>
 </html>
