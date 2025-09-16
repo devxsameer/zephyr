@@ -19,7 +19,9 @@ function renderHero(initial = true) {
     <div class="hero-loader"><i data-lucide="loader-circle" class="icon"></i></div>
     <div>
         <div class="hero-content">
-          <img width="200px" src="${initial ? initialSvg : errorSvg}" alt="weather-svg" class="hero-svg" />
+          <div class="hero-svg-wrapper">
+            <img width="200px" src="${initial ? initialSvg : errorSvg}" alt="weather-svg" class="hero-svg" />
+          </div>
           <div class="hero-initial">
             <h3>${initial ? "Zephyr is waiting to breeze you some forecasts ✨" : "Hmm… Zephyr couldn't find that city 🌪️"}</h3>
             ${initial ? "" : `<p>Zephyr's still learning geography — maybe pick a bigger city?</p>`}
@@ -64,10 +66,12 @@ function renderWeatherHero(current, unit) {
             <div class="hero-loader"><i data-lucide="loader-circle" class="icon"></i></div>
             <div>
                 <div class="hero-content">
-                    <img width="200px" src="${getWeatherIcon(
-                      current.today.weatherCode,
-                      current.isDay,
-                    )}" alt="weather-svg" class="hero-svg" />
+                    <div class="hero-svg-wrapper">
+                      <img width="200px" src="${getWeatherIcon(
+                        current.today.weatherCode,
+                        current.isDay,
+                      )}" alt="weather-svg" class="hero-svg" />
+                    </div>
                     <div>
                         <div class="hero-temperature">
                             <span>${temp}</span>
