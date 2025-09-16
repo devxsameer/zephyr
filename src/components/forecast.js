@@ -6,9 +6,18 @@ import { celsiusToFahrenheit } from "../modules/utils";
 const forecast = document.querySelector(".forecast");
 // for initial and error
 function renderEmptyWeatherForecast() {
+  const days = [1, 2, 3, 4, 5, 6];
   const html = /*html*/ `
-                <div class="empty-container">
-                      <i data-lucide="search" class="icon"></i>
+                <h3>Weather Forecast</h3>
+                <div class="forecast-card-wrapper">
+                  ${days
+                    .map(() => {
+                      const html = /*html*/ `
+                            <div class="forecast-card skeleton"></div>
+                        `;
+                      return html;
+                    })
+                    .join("")}
                 </div>`;
   forecast.innerHTML = html;
 }

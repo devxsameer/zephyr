@@ -25,6 +25,7 @@ async function getCurrentLocationWeather() {
   }
 }
 async function setWeather(lat, long) {
+  UI.showHeroLoader();
   try {
     const data = await getWeatherData(lat, long);
     if (data.error) {
@@ -94,6 +95,7 @@ function init() {
       const query = e.target.value.trim();
       if (query) {
         debouncedSearch.cancel?.();
+        UI.showHeroLoader();
         handleEnter(query);
       }
     }

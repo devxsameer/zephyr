@@ -6,6 +6,25 @@
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.5rem;
+  position: relative;
+}
+.hero.loading .hero-loader {
+  display: flex;
+}
+.hero-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-foreground);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.hero-loader .icon {
+  animation: spin 0.8s linear infinite;
 }
 .hero-content {
   display: grid;

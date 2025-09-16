@@ -24,6 +24,7 @@ import {
 
 const UI = {
   searchLoader: document.querySelector(".search-loader") ?? null,
+  heroLoader: document.querySelector(".hero") ?? null,
   loader: document.querySelector(".loader-wrapper") ?? null,
   queryList: document.querySelector(".query-list") ?? null,
   hero: document.querySelector(".hero") ?? null,
@@ -38,6 +39,7 @@ const UI = {
   // initialize
   init() {
     if (this.greeting) this.greeting.innerHTML = getGreeting();
+    this.showHeroLoader();
 
     renderHero();
     renderEmptyCurrentWeather();
@@ -125,6 +127,13 @@ const UI = {
   },
   hideSearchLoader() {
     this.searchLoader?.classList.remove("active");
+  },
+  // Hero Loader
+  showHeroLoader() {
+    this.heroLoader?.classList.add("loading");
+  },
+  hideHeroLoader() {
+    this.heroLoader?.classList.remove("loading");
   },
 
   // Refresh Lucide Icons

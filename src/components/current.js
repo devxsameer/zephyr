@@ -12,8 +12,14 @@ const current = document.querySelector(".current");
 // for empty
 function renderEmptyCurrentWeather() {
   const html = /*html*/ `
-                <div class="empty-container">
-                    <i data-lucide="search" class="icon"></i>
+                <h3>Today's Highlights</h3>
+                <div class="current-card-wrapper">
+                    <div class="wind-status current-card skeleton"></div>
+                    <div class="humidity current-card skeleton"></div>
+                    <div class="uv-index current-card skeleton"></div>
+                    <div class="cloud-cover current-card skeleton"></div>
+                    <div class="sunrise current-card skeleton"></div>
+                    <div class="sunset current-card skeleton"></div>
                 </div>`;
   current.innerHTML = html;
 }

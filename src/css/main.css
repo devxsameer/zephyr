@@ -124,6 +124,7 @@ body {
 }
 .main {
   grid-area: main;
+  min-height: 320px;
   background-color: var(--color-foreground);
   padding: 1rem;
   height: 100%;
@@ -132,7 +133,6 @@ body {
   border-radius: 0.5rem;
 }
 .section {
-  flex: 1;
   display: flex;
   flex-flow: column nowrap;
   gap: 1rem;
@@ -144,13 +144,31 @@ body {
   background-color: var(--color-foreground);
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 .section > * > h3 {
   font-weight: 400;
 }
-.section .forecast {
-  flex: 2;
+.section > .current {
+  min-height: 320px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+/* SKELETON */
+.skeleton {
+  background: linear-gradient(90deg, #2a2a2a 25%, #2d2d2d 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 /* SEARCH */
 .search {
@@ -205,6 +223,7 @@ body {
   border-radius: 0.3rem;
   overflow: hidden;
   gap: 0.1rem;
+  z-index: 1000;
   background-color: var(--color-foreground);
 }
 .search .query-list li {

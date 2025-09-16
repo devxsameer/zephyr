@@ -6,6 +6,7 @@ import bgNight from "../assets/images/background-night.png";
 import errorSvg from "../assets/images/error.svg";
 import initialSvg from "../assets/images/hero.svg";
 import { celsiusToFahrenheit } from "../modules/utils";
+import UI from "../ui";
 
 const hero = document.querySelector(".hero") ?? null;
 
@@ -15,6 +16,7 @@ function renderHero(initial = true) {
   const now = new Date();
 
   const html = /*html*/ `
+    <div class="hero-loader"><i data-lucide="loader-circle" class="icon"></i></div>
     <div>
         <div class="hero-content">
           <img width="200px" src="${initial ? initialSvg : errorSvg}" alt="weather-svg" class="hero-svg" />
@@ -45,6 +47,7 @@ function renderHero(initial = true) {
     </div>
     `;
   hero.innerHTML = html;
+  UI.hideHeroLoader();
 }
 
 // Weather hero
@@ -58,6 +61,7 @@ function renderWeatherHero(current, unit) {
     : celsiusToFahrenheit(current.temperature);
 
   const html = /*html*/ `
+            <div class="hero-loader"><i data-lucide="loader-circle" class="icon"></i></div>
             <div>
                 <div class="hero-content">
                     <img width="200px" src="${getWeatherIcon(
@@ -91,5 +95,6 @@ function renderWeatherHero(current, unit) {
                 <span>${current.region}, ${current.country}</span>
             </div>`;
   hero.innerHTML = html;
+  UI.hideHeroLoader();
 }
 export { renderWeatherHero, renderHero };
