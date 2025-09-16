@@ -68,6 +68,7 @@ function filterWeatherData(currentWeather, forecastWeather) {
 
   const current = {
     condition: currentWeather?.current?.condition?.text || "Unknown",
+    code: currentWeather?.current?.condition?.code || "1000",
     isDay: currentWeather?.current?.is_day ?? 1,
     windSpeed: currentWeather?.current?.wind_kph ?? 0,
     humidity: currentWeather?.current?.humidity ?? 0,
@@ -119,6 +120,8 @@ async function getWeatherData(lat, long) {
 
     const currentWeatherData = await currentWeatherResponse.json();
     const forecastData = await forecastResponse.json();
+    console.log(currentWeatherData);
+    console.log(forecastData);
 
     return filterWeatherData(currentWeatherData, forecastData);
   } catch (err) {

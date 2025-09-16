@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { getWeatherIcon } from "../modules/icons";
+import { getUnifiedWeatherIcon } from "../modules/icons";
 import "../css/forecast.css";
 import { celsiusToFahrenheit } from "../modules/utils";
 
@@ -39,7 +39,7 @@ function renderWeatherForecast(days, unit) {
                       const html = /*html*/ `
                             <div class="forecast-card">
                                 <span>${format(day.date, "EEE")}</span>
-                                <img width="100px" src="${getWeatherIcon(day.weatherCode)}" alt="forecast-img" />
+                                <img width="100px" src="${getUnifiedWeatherIcon(day.weatherCode)}" alt="forecast-img" />
                                 <span class="temp"><span>${tempMax}°</span>-${tempMin}°</span>
                             </div>
                         `;

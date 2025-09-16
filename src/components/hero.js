@@ -1,6 +1,6 @@
 import "../css/hero.css";
 import { format } from "date-fns";
-import { getWeatherIcon } from "../modules/icons";
+import { getUnifiedWeatherIcon } from "../modules/icons";
 import bgDay from "../assets/images/background-day.png";
 import bgNight from "../assets/images/background-night.png";
 import errorSvg from "../assets/images/error.svg";
@@ -67,9 +67,10 @@ function renderWeatherHero(current, unit) {
             <div>
                 <div class="hero-content">
                     <div class="hero-svg-wrapper">
-                      <img width="200px" src="${getWeatherIcon(
-                        current.today.weatherCode,
+                      <img width="200px" src="${getUnifiedWeatherIcon(
+                        current.code,
                         current.isDay,
+                        `weatherapi`,
                       )}" alt="weather-svg" class="hero-svg" />
                     </div>
                     <div>

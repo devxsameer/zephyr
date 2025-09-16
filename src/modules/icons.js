@@ -16,6 +16,58 @@ import svg13d from "../assets/icons/13d.svg";
 import svg13n from "../assets/icons/13n.svg";
 import svg50d from "../assets/icons/50d.svg";
 import svg50n from "../assets/icons/50n.svg";
+// Map WeatherAPI condition codes to WMO codes
+const WEATHER_API_TO_WMO = {
+  1000: 0, // Sunny -> Clear sky
+  1003: 2, // Partly cloudy
+  1006: 3, // Cloudy
+  1009: 3, // Overcast
+  1030: 45, // Mist -> Fog
+  1063: 61, // Patchy rain possible -> Slight rain
+  1066: 71, // Patchy snow possible -> Slight snow
+  1069: 80, // Patchy sleet possible -> Rain showers slight
+  1072: 51, // Patchy freezing drizzle -> Light drizzle
+  1087: 95, // Thunder possible -> Thunderstorm
+  1114: 73, // Blowing snow -> Moderate snow fall
+  1117: 75, // Blizzard -> Heavy snow fall
+  1135: 45, // Fog
+  1147: 48, // Freezing fog -> Rime fog
+  1150: 51, // Patchy light drizzle -> Light drizzle
+  1153: 51, // Light drizzle
+  1168: 53, // Freezing drizzle -> Moderate drizzle
+  1171: 55, // Heavy freezing drizzle -> Dense drizzle
+  1180: 61, // Patchy light rain -> Slight rain
+  1183: 61, // Light rain
+  1186: 63, // Moderate rain at times
+  1189: 63, // Moderate rain
+  1192: 65, // Heavy rain at times
+  1195: 65, // Heavy rain
+  1198: 61, // Light freezing rain -> Slight rain
+  1201: 63, // Heavy freezing rain -> Moderate rain
+  1204: 80, // Light sleet -> Rain showers slight
+  1207: 81, // Heavy sleet -> Rain showers moderate
+  1210: 71, // Patchy light snow
+  1213: 71, // Light snow
+  1216: 73, // Patchy moderate snow
+  1219: 73, // Moderate snow
+  1222: 75, // Patchy heavy snow
+  1225: 75, // Heavy snow
+  1237: 99, // Ice pellets -> Thunderstorm w/ hail (closest)
+  1240: 80, // Light rain shower
+  1243: 81, // Moderate rain shower
+  1246: 82, // Torrential rain shower
+  1249: 80, // Light sleet showers
+  1252: 81, // Moderate sleet showers
+  1255: 71, // Light snow showers
+  1258: 73, // Moderate snow showers
+  1261: 80, // Light ice pellet showers
+  1264: 81, // Heavy ice pellet showers
+  1273: 95, // Light rain w/ thunder
+  1276: 96, // Heavy rain w/ thunder
+  1279: 95, // Light snow w/ thunder
+  1282: 96, // Heavy snow w/ thunder
+};
+
 const ICON_MAP = {
   0: { day: svg01d, night: svg01n }, // Clear sky
   1: { day: svg02d, night: svg02n }, // Mainly clear
@@ -46,8 +98,19 @@ const ICON_MAP = {
   99: { day: svg11d, night: svg11n }, // Thunderstorm with heavy hail
 };
 
-export function getWeatherIcon(wmoCode, isDay = true) {
+function getWeatherIcon(wmoCode, isDay = true) {
   const iconSet = ICON_MAP[wmoCode];
   if (!iconSet) return svg02d; // fallback: clear day
   return isDay ? iconSet.day : iconSet.night;
+}
+export function getUnifiedWeatherIcon(code, isDay = true, source = "wmo") {
+  let wmoCode;
+
+  if (source === "weatherapi") {
+    wmoCode = WEATHER_API_TO_WMO[code] ?? 2; // fallback: partly cloudy
+  } else {
+    wmoCode = code; // already WMO from Open-Meteo
+  }
+
+  return getWeatherIcon(wmoCode, isDay);
 }
